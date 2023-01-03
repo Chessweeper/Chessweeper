@@ -1,0 +1,17 @@
+.home {
+  text-align: center;
+}
+
+.home__title {
+  font-size: 3em;
+  margin: 0.25em;
+}
+
+.home__howtoplay-link {
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+.footer-icons {
+  gap: 10px;
+}

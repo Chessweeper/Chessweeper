@@ -2,12 +2,12 @@
 // @vitest-environment jsdom
 import { MemoryRouter } from "react-router-dom";
 import { render, waitFor, screen } from "@testing-library/react";
-import { Footer } from "../../src/components/Footer";
 import { act } from "react-dom/test-utils";
+import { DailyPuzzleButton } from "../../src/components/home/DailyPuzzleButton";
 
 console.error = vi.fn();
 
-describe("Footer tests", () => {
+describe("DailyPuzzleButton tests", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
@@ -18,12 +18,11 @@ describe("Footer tests", () => {
       text: vi.fn().mockResolvedValue("mockPuzzleSeed"),
     });
 
-    const { container } = render(<Footer />, { wrapper: MemoryRouter });
+    render(<DailyPuzzleButton />, { wrapper: MemoryRouter });
 
-    await screen.findByText(/^Daily/i);
-    const dailyPuzzleLink = container.querySelector("#daily");
+    const daily = await screen.findByText(/^Daily/i);
 
-    expect(dailyPuzzleLink).toBeInTheDocument();
+    expect(daily).toBeInTheDocument();
   });
 
   it("should not render the daily puzzle link on unsuccessful daily api call", async () => {
@@ -31,7 +30,7 @@ describe("Footer tests", () => {
       ok: false,
     });
 
-    render(<Footer />, { wrapper: MemoryRouter });
+    render(<DailyPuzzleButton />, { wrapper: MemoryRouter });
 
     await waitFor(() => {
       expect(console.error).toHaveBeenCalledOnce();
@@ -48,7 +47,7 @@ describe("Footer tests", () => {
       text: vi.fn().mockResolvedValue("longErrorValueOnFetchReturn"),
     });
 
-    render(<Footer />, { wrapper: MemoryRouter });
+    render(<DailyPuzzleButton />, { wrapper: MemoryRouter });
 
     await waitFor(() => {
       expect(console.error).toHaveBeenCalledOnce();
@@ -66,7 +65,7 @@ describe("Footer tests", () => {
     });
     vi.useFakeTimers();
 
-    render(<Footer />, { wrapper: MemoryRouter });
+    render(<DailyPuzzleButton />, { wrapper: MemoryRouter });
 
     act(() => {
       vi.advanceTimersByTime(5000);
@@ -84,7 +83,7 @@ describe("Footer tests", () => {
     });
     vi.useFakeTimers();
 
-    render(<Footer />, { wrapper: MemoryRouter });
+    render(<DailyPuzzleButton />, { wrapper: MemoryRouter });
 
     act(() => {
       vi.advanceTimersByTime(86400001);

@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { Random } from "../gen/Random";
 import { LoadingBar } from "./LoadingBar";
 import PuzzleGenWorker from "../PuzzleGenWorker?worker";
+import { BackButton } from "./ui/BackButton";
 
 export interface BoardPropsWithReload extends BoardProps<GameState> {
   reload: () => void;
@@ -167,5 +168,10 @@ export const Client = (): JSX.Element => {
     [game, setupGame]
   );
 
-  return game ? <Client /> : <LoadingBar value={progress} />;
+  return (
+    <div className="flex">
+      <BackButton />
+      {game ? <Client /> : <LoadingBar value={progress} />}
+    </div>
+  );
 };
